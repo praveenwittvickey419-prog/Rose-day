@@ -2,182 +2,327 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Happy Rose Day 🌹</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hey ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
 
 <style>
+:root{
+--primary-pink:#ff4d6d;
+--light-pink:#ff85a1;
+--dark-rose:#590d22;
+--glass:rgba(255,255,255,.08);
+--gold:#ffb703;
+}
+
+*{box-sizing:border-box}
+
 html,body{
-  margin:0;
-  height:100%;
-  background:#0b0d10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  font-family:system-ui;
+margin:0;
+height:100%;
+overflow:hidden;
+font-family:Poppins,sans-serif;
+background:radial-gradient(circle at center,#2b0303 0%,#000 100%);
+color:#fff;
+cursor:none;
 }
 
-.screen{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  text-align:center;
+/* background */
+.bg-overlay{
+position:fixed;inset:0;
+background:url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+opacity:.2;pointer-events:none;z-index:1;
+}
+.orb{
+position:fixed;border-radius:50%;filter:blur(80px);
+opacity:.15;pointer-events:none;z-index:2;
+animation:float 20s infinite ease-in-out;
+}
+.orb1{width:400px;height:400px;background:var(--primary-pink);top:-100px;left:-100px;}
+.orb2{width:300px;height:300px;background:var(--dark-rose);bottom:-50px;right:-50px;animation-delay:5s;}
+
+@keyframes float{
+0%,100%{transform:translate(0,0) scale(1)}
+33%{transform:translate(50px,-50px) scale(1.1)}
+66%{transform:translate(-30px,30px) scale(.9)}
 }
 
-button{
-  margin-top:18px;
-  padding:10px 22px;
-  border:none;
-  border-radius:20px;
-  background:#e63946;
-  color:white;
-  font-size:14px;
-  cursor:pointer;
+/* cursor */
+#cursor{
+width:12px;height:12px;
+background:radial-gradient(circle,#fff,var(--light-pink));
+border-radius:50%;
+position:fixed;pointer-events:none;z-index:9999;
+box-shadow:0 0 20px 3px #fff,0 0 40px var(--primary-pink);
+transform:translate(-50%,-50%);
+}
+.trail{
+position:fixed;width:6px;height:6px;
+background:radial-gradient(circle,var(--light-pink),transparent);
+border-radius:50%;pointer-events:none;z-index:9998;
+animation:fadeOut 1.2s forwards;
+transform:translate(-50%,-50%);
+}
+@keyframes fadeOut{
+to{opacity:0;transform:translate(-50%,-50%) scale(0)}
 }
 
-/* -------- ROSE -------- */
+.container{
+position:relative;height:100%;
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+text-align:center;z-index:10;
+perspective:1000px;padding:20px;
+}
 
+.name{
+font-family:'Dancing Script',cursive;
+font-size:clamp(3.2rem,10vw,6rem);
+background:linear-gradient(135deg,#fff 0%,var(--primary-pink) 50%,var(--gold) 100%);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+filter:drop-shadow(0 0 30px rgba(255,77,109,.6));
+margin-bottom:10px;
+animation:heartbeat 3s infinite ease-in-out, shimmer 4s infinite;
+background-size:200% 200%;
+}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.rose-wrapper{transform-style:preserve-3d}
+
+/* rose */
 .rose{
-  position:relative;
-  width:160px;
-  height:160px;
-  margin-bottom:25px;
-  animation:breeze 4s ease-in-out infinite;
+position:relative;width:150px;height:150px;margin:20px auto;
+transform-style:preserve-3d;
 }
-
 .petal{
-  position:absolute;
-  width:65px;
-  height:65px;
-  background:#e63946;
-  border-radius:50% 50% 50% 0;
-  transform-origin:bottom right;
-  opacity:0;
-  animation:bloom 1.8s ease forwards;
+position:absolute;width:60px;height:90px;
+background:linear-gradient(135deg,#ff4d6d 0%,#c9184a 50%,#800f2f 100%);
+border-radius:50% 50% 10% 90%;
+transform-origin:bottom center;
+opacity:0;
+transition:all 2.2s cubic-bezier(.17,.67,.83,.67);
+box-shadow:inset -5px -5px 15px rgba(0,0,0,.4),0 5px 20px rgba(255,77,109,.3);
+border:.5px solid rgba(255,255,255,.15);
+}
+.petal::before{
+content:'';
+position:absolute;top:10%;left:10%;
+width:30%;height:40%;
+background:radial-gradient(ellipse,rgba(255,255,255,.2),transparent);
+border-radius:50%;
+}
+.petal.bloomed{animation:petalGlow 2s infinite ease-in-out}
+@keyframes petalGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+
+.p-center{
+position:absolute;width:35px;height:35px;
+left:57.5px;top:57.5px;
+background:radial-gradient(circle,#6a0404 0%,#4a0404 70%,#2a0202 100%);
+border-radius:50%;z-index:10;
+box-shadow:0 0 25px rgba(255,77,109,.8),inset 0 2px 5px rgba(255,255,255,.1);
 }
 
-.petal:nth-child(1){transform:rotate(0deg);}
-.petal:nth-child(2){transform:rotate(30deg);}
-.petal:nth-child(3){transform:rotate(60deg);}
-.petal:nth-child(4){transform:rotate(90deg);}
-.petal:nth-child(5){transform:rotate(120deg);}
-.petal:nth-child(6){transform:rotate(150deg);}
-.petal:nth-child(7){transform:rotate(180deg);}
-.petal:nth-child(8){transform:rotate(210deg);}
-.petal:nth-child(9){transform:rotate(240deg);}
-.petal:nth-child(10){transform:rotate(270deg);}
-.petal:nth-child(11){transform:rotate(300deg);}
-.petal:nth-child(12){transform:rotate(330deg);}
+/* stem & leaves */
+.stem{
+position:absolute;width:4px;height:80px;
+background:linear-gradient(to bottom,#2d5016,#1a3009);
+bottom:-80px;left:50%;transform:translateX(-50%);
+border-radius:2px;opacity:0;transition:opacity 1s ease-out 1.5s;
+}
+.stem.show{opacity:1}
 
-@keyframes bloom{
-  from{transform:scale(.2) rotate(0deg);opacity:0;}
-  to{opacity:1;}
+.leaf{
+position:absolute;width:30px;height:20px;
+background:linear-gradient(135deg,#3d6e1f,#2d5016);
+border-radius:0 50% 50% 0;
+opacity:0;transition:all 1s ease-out;
+}
+.leaf1{bottom:-50px;left:-15px;transform:rotate(-45deg);transition-delay:2s}
+.leaf2{bottom:-65px;right:-15px;transform:rotate(45deg) scaleX(-1);transition-delay:2.2s}
+.leaf.show{opacity:.9}
+
+/* popup card */
+.card{
+background:var(--glass);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.18);
+padding:30px;border-radius:22px;
+max-width:420px;width:90%;
+transform:translateY(40px) rotateX(15deg) scale(.95);
+opacity:0;
+transition:all 1.4s cubic-bezier(.23,1,.32,1);
+box-shadow:0 25px 50px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1) inset;
+}
+.card.reveal{
+opacity:1;
+transform:translateY(0) rotateX(0) scale(1);
+}
+.message{
+font-size:1rem;line-height:1.8;color:#ffeef2;
 }
 
-@keyframes breeze{
-  0%,100%{transform:rotate(0deg);}
-  50%{transform:rotate(2deg);}
+/* story text */
+.story div{opacity:0;animation:line 1s forwards}
+.story div:nth-child(1){animation-delay:.2s}
+.story div:nth-child(2){animation-delay:1.4s}
+.story div:nth-child(3){animation-delay:2.6s}
+.story div:nth-child(4){animation-delay:3.8s}
+@keyframes line{to{opacity:1}}
+
+.tap-hint{
+position:absolute;bottom:40px;
+font-size:.7rem;letter-spacing:3px;
+text-transform:uppercase;color:var(--light-pink);
+animation:bounce 2.5s infinite;opacity:.8;
+}
+@keyframes bounce{
+0%,100%{opacity:.4;transform:translateY(0)}
+50%{opacity:1;transform:translateY(-8px)}
 }
 
-/* -------- STORY -------- */
-
-.story{
-  max-width:360px;
-  line-height:1.6;
+@media(hover:none) and (pointer:coarse){
+html,body{cursor:auto}
+#cursor,.trail{display:none}
 }
-
-.story div{
-  opacity:0;
-  animation:showLine 1s forwards;
-}
-
-.story div:nth-child(1){animation-delay:.4s;}
-.story div:nth-child(2){animation-delay:1.6s;}
-.story div:nth-child(3){animation-delay:2.8s;}
-.story div:nth-child(4){animation-delay:4s;}
-
-@keyframes showLine{
-  to{opacity:1;}
-}
-
-/* -------- POPUP -------- */
-
-.popup{
-  background:#121621;
-  padding:26px 30px;
-  border-radius:16px;
-  font-size:18px;
-}
-
-.hidden{display:none;}
 </style>
 </head>
 <body>
 
-<!-- Screen 1 -->
-<div class="screen" id="start">
-  <div>Tap here 🌹</div>
-  <button onclick="showRose()">Touch</button>
+<div id="cursor"></div>
+<div class="bg-overlay"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="container">
+
+<div class="name">Radhika</div>
+
+<div class="rose-wrapper" id="roseWrapper">
+<div class="rose" id="rose">
+<div class="p-center"></div>
+<div class="stem" id="stem"></div>
+<div class="leaf leaf1" id="leaf1"></div>
+<div class="leaf leaf2" id="leaf2"></div>
+</div>
 </div>
 
-<!-- Screen 2 -->
-<div class="screen hidden" id="roseScreen">
-  <div class="rose" id="rose">
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-  </div>
-  <button onclick="showStory()">See more</button>
+<div class="card" id="card">
+
+<div class="story">
+<div>Aaj Rose Day hai…</div>
+<div>par kuch logon ko phool dene ki zarurat hi nahi hoti.</div>
+<div>Unki presence hi kaafi hoti hai.</div>
+<div>For the one who doesn’t need a rose to be one.</div>
 </div>
 
-<!-- Screen 3 -->
-<div class="screen hidden" id="storyScreen">
-  <div class="rose">
-    <div class="petal" style="opacity:1"></div>
-  </div>
-
-  <div class="story">
-    <div>Aaj Rose Day hai…</div>
-    <div>par kuch logon ko phool dene ki zarurat hi nahi hoti.</div>
-    <div>Unki presence hi kaafi hoti hai.</div>
-    <div>For the one who doesn’t need a rose to be one.</div>
-  </div>
-
-  <button onclick="showWish()">Hear more</button>
+<div class="message" style="margin-top:15px">
+Happy Rose Day, my Rosie Radhika 🌹
 </div>
 
-<!-- Screen 4 -->
-<div class="screen hidden" id="wishScreen">
-  <div class="popup">
-    Happy Rose Day 🌹
-  </div>
 </div>
+
+<div class="tap-hint" id="hint">✨ Click to bloom ✨</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6b90c4e6b1.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function showRose(){
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("roseScreen").classList.remove("hidden");
+const rose=document.getElementById("rose");
+const card=document.getElementById("card");
+const music=document.getElementById("music");
+const cursor=document.getElementById("cursor");
+const hint=document.getElementById("hint");
+const stem=document.getElementById("stem");
+const leaf1=document.getElementById("leaf1");
+const leaf2=document.getElementById("leaf2");
 
-  const petals=document.querySelectorAll("#rose .petal");
-  petals.forEach((p,i)=>{
-    p.style.animationDelay=(i*0.12)+"s";
-  });
+const petalCount=18;
+for(let i=0;i<petalCount;i++){
+const p=document.createElement("div");
+p.className="petal";
+const ring=Math.floor(i/6);
+const angle=(i%6)*60+ring*10;
+p.dataset.ring=ring;
+p.dataset.angle=angle;
+p.style.left="45px";
+p.style.bottom="30px";
+rose.appendChild(p);
 }
 
-function showStory(){
-  document.getElementById("roseScreen").classList.add("hidden");
-  document.getElementById("storyScreen").classList.remove("hidden");
+let bloomed=false;
+
+function bloomRose(){
+if(bloomed)return;
+bloomed=true;
+
+document.querySelectorAll(".petal").forEach((p,i)=>{
+const r=parseFloat(p.dataset.angle);
+const ring=parseInt(p.dataset.ring);
+setTimeout(()=>{
+p.style.opacity=.95;
+const scale=1+(ring*.15)+Math.random()*.2;
+const ty=-15-ring*8-Math.random()*10;
+p.style.transform=`rotate(${r}deg) translateY(${ty}px) scale(${scale}) rotateX(${10-ring*3}deg)`;
+setTimeout(()=>p.classList.add("bloomed"),1500);
+},i*45);
+});
+
+setTimeout(()=>{
+stem.classList.add("show");
+leaf1.classList.add("show");
+leaf2.classList.add("show");
+},1200);
+
+setTimeout(()=>card.classList.add("reveal"),1800);
+
+hint.style.display="none";
+
+music.play().catch(()=>{});
 }
 
-function showWish(){
-  document.getElementById("storyScreen").classList.add("hidden");
-  document.getElementById("wishScreen").classList.remove("hidden");
+document.body.addEventListener("click",bloomRose,{once:true});
+document.body.addEventListener("touchstart",bloomRose,{once:true});
+
+/* cursor follow + twinkle */
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+
+if(Math.random()>.7){
+const t=document.createElement("div");
+t.className="trail";
+t.style.left=e.clientX+"px";
+t.style.top=e.clientY+"px";
+document.body.appendChild(t);
+setTimeout(()=>t.remove(),1200);
 }
+
+if(Math.random()>.75){
+const s=document.createElement("div");
+s.textContent=["✨","✦","⭐","✧"][Math.floor(Math.random()*4)];
+s.style.position="fixed";
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+s.style.pointerEvents="none";
+s.style.zIndex=9997;
+s.style.fontSize=(8+Math.random()*6)+"px";
+s.style.color="#ff85a1";
+s.style.filter="drop-shadow(0 0 6px #ff4d6d)";
+s.style.transition="all 1s ease-out";
+document.body.appendChild(s);
+requestAnimationFrame(()=>{
+s.style.transform="translate(0,-20px) scale(.2)";
+s.style.opacity=0;
+});
+setTimeout(()=>s.remove(),1000);
+}
+});
 </script>
 
 </body>
