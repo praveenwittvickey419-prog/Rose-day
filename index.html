@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey ✨</title>
+
+<style>
+html,body{
+  margin:0;
+  height:100%;
+  background:#0b0d10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-family:system-ui;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-align:center;
+}
+
+button{
+  margin-top:18px;
+  padding:10px 22px;
+  border:none;
+  border-radius:20px;
+  background:#e63946;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* -------- ROSE -------- */
+
+.rose{
+  position:relative;
+  width:160px;
+  height:160px;
+  margin-bottom:25px;
+  animation:breeze 4s ease-in-out infinite;
+}
+
+.petal{
+  position:absolute;
+  width:65px;
+  height:65px;
+  background:#e63946;
+  border-radius:50% 50% 50% 0;
+  transform-origin:bottom right;
+  opacity:0;
+  animation:bloom 1.8s ease forwards;
+}
+
+.petal:nth-child(1){transform:rotate(0deg);}
+.petal:nth-child(2){transform:rotate(30deg);}
+.petal:nth-child(3){transform:rotate(60deg);}
+.petal:nth-child(4){transform:rotate(90deg);}
+.petal:nth-child(5){transform:rotate(120deg);}
+.petal:nth-child(6){transform:rotate(150deg);}
+.petal:nth-child(7){transform:rotate(180deg);}
+.petal:nth-child(8){transform:rotate(210deg);}
+.petal:nth-child(9){transform:rotate(240deg);}
+.petal:nth-child(10){transform:rotate(270deg);}
+.petal:nth-child(11){transform:rotate(300deg);}
+.petal:nth-child(12){transform:rotate(330deg);}
+
+@keyframes bloom{
+  from{transform:scale(.2) rotate(0deg);opacity:0;}
+  to{opacity:1;}
+}
+
+@keyframes breeze{
+  0%,100%{transform:rotate(0deg);}
+  50%{transform:rotate(2deg);}
+}
+
+/* -------- STORY -------- */
+
+.story{
+  max-width:360px;
+  line-height:1.6;
+}
+
+.story div{
+  opacity:0;
+  animation:showLine 1s forwards;
+}
+
+.story div:nth-child(1){animation-delay:.4s;}
+.story div:nth-child(2){animation-delay:1.6s;}
+.story div:nth-child(3){animation-delay:2.8s;}
+.story div:nth-child(4){animation-delay:4s;}
+
+@keyframes showLine{
+  to{opacity:1;}
+}
+
+/* -------- POPUP -------- */
+
+.popup{
+  background:#121621;
+  padding:26px 30px;
+  border-radius:16px;
+  font-size:18px;
+}
+
+.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<!-- Screen 1 -->
+<div class="screen" id="start">
+  <div>Tap here 🌹</div>
+  <button onclick="showRose()">Touch</button>
+</div>
+
+<!-- Screen 2 -->
+<div class="screen hidden" id="roseScreen">
+  <div class="rose" id="rose">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  </div>
+  <button onclick="showStory()">See more</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen hidden" id="storyScreen">
+  <div class="rose">
+    <div class="petal" style="opacity:1"></div>
+  </div>
+
+  <div class="story">
+    <div>Aaj Rose Day hai…</div>
+    <div>par kuch logon ko phool dene ki zarurat hi nahi hoti.</div>
+    <div>Unki presence hi kaafi hoti hai.</div>
+    <div>For the one who doesn’t need a rose to be one.</div>
+  </div>
+
+  <button onclick="showWish()">Hear more</button>
+</div>
+
+<!-- Screen 4 -->
+<div class="screen hidden" id="wishScreen">
+  <div class="popup">
+    Happy Rose Day 🌹
+  </div>
+</div>
+
+<script>
+function showRose(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("roseScreen").classList.remove("hidden");
+
+  const petals=document.querySelectorAll("#rose .petal");
+  petals.forEach((p,i)=>{
+    p.style.animationDelay=(i*0.12)+"s";
+  });
+}
+
+function showStory(){
+  document.getElementById("roseScreen").classList.add("hidden");
+  document.getElementById("storyScreen").classList.remove("hidden");
+}
+
+function showWish(){
+  document.getElementById("storyScreen").classList.add("hidden");
+  document.getElementById("wishScreen").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
